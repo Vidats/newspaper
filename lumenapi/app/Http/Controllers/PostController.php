@@ -17,10 +17,16 @@ class PostController extends Controller
         return response()->json($posts, 200);
     }
 
-    // Xem thông tin 1 bài viết chi tiết
+    // Xem thông tin 1 bài viết chi tiết (Hỗ trợ tìm qua ID hoặc Slug)
     public function show($id)
     {
-        $post = Post::with(['user', 'menu', 'media'])->find($id);
+        // 1. Thử tìm theo Slug trước (vì đa phần Frontend giờ gửi lên Slug)
+        $post = Post::with(['user', 'menu', 'media'])->where('slug', $id)->first();
+
+        // 2. Nếu không thấy bài viết theo Slug, thử tìm theo ID (nếu giá trị gửi lên là số)
+        if (!$post && is_numeric($id)) {
+            $post = Post::with(['user', 'menu', 'media'])->find($id);
+        }
 
         if (!$post) {
             return response()->json(['message' => 'Bài viết không tồn tại'], 404);
@@ -28,7 +34,6 @@ class PostController extends Controller
 
         return response()->json($post, 200);
     }
-
     // Tạo mới bài viết
     public function store(Request $request)
     {

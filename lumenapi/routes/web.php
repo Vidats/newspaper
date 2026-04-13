@@ -36,7 +36,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('posts/{id}', 'PostController@show');
     $router->get('posts/menu/{id}', 'PostController@getByMenu');
 
-
     /* =========================================================
        2. KHU VỰC CHỈ CẦN ĐĂNG NHẬP (Bảo vệ bởi middleware 'auth')
        ========================================================= */

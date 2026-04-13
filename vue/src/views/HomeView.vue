@@ -15,13 +15,13 @@
         <div class="hero-left">
           <div class="featured-card">
             <div class="featured-img">
-              <RouterLink :to="`/post/${featuredPost.id}`">
+              <RouterLink :to="`/post/${featuredPost.slug}`">
                 <img :src="getImageUrl(featuredPost.media?.path)" :alt="featuredPost.title" />
               </RouterLink>
               <span v-if="featuredPost.menu" class="badge-cat">{{ featuredPost.menu.name }}</span>
             </div>
             <div class="featured-info">
-              <RouterLink :to="`/post/${featuredPost.id}`" class="featured-title-link">
+              <RouterLink :to="`/post/${featuredPost.slug}`" class="featured-title-link">
                 <h1 class="featured-title">{{ featuredPost.title }}</h1>
               </RouterLink>
               <p class="featured-summary">{{ featuredPost.summary }}</p>
@@ -38,7 +38,7 @@
           <h3 class="side-title">Tin mới cập nhật</h3>
           <div class="latest-titles-list">
             <div v-for="post in latestNewsTitles" :key="post.id" class="title-item">
-              <RouterLink :to="`/post/${post.id}`" class="title-link">
+              <RouterLink :to="`/post/${post.slug}`" class="title-link">
                 {{ post.title }}
               </RouterLink>
               <span class="title-date">{{ formatDate(post.created_at) }}</span>
@@ -56,13 +56,13 @@
         <div class="news-grid-4">
           <article v-for="post in displayGridPosts" :key="post.id" class="grid-card">
             <div class="grid-img">
-              <RouterLink :to="`/post/${post.id}`">
+              <RouterLink :to="`/post/${post.slug}`">
                 <img :src="getImageUrl(post.media?.path)" :alt="post.title" />
               </RouterLink>
               <span v-if="post.menu" class="grid-badge">{{ post.menu.name }}</span>
             </div>
             <div class="grid-body">
-              <RouterLink :to="`/post/${post.id}`" class="grid-title-link">
+              <RouterLink :to="`/post/${post.slug}`" class="grid-title-link">
                 <h3 class="grid-title">{{ post.title }}</h3>
               </RouterLink>
               <p class="grid-summary">{{ post.summary }}</p>

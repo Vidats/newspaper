@@ -18,14 +18,7 @@ const router = createRouter({
       name:'login',
       component: AuthView,
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
-    },
+
 {
       path: '/menu',
       name: 'menu',
@@ -42,7 +35,7 @@ const router = createRouter({
       component: PostManager
     },
     {
-      path: '/post/:id',
+      path: '/post/:slug',
       name: 'post-detail',
       component: () => import('../views/PostDetail.vue')
     }

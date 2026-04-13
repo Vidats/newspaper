@@ -68,7 +68,7 @@
              <h3 class="side-title">Tin cùng chuyên mục</h3>
              <div class="related-list" v-if="relatedPosts.length > 0">
                 <div v-for="related in relatedPosts" :key="related.id" class="related-item">
-                   <RouterLink :to="`/post/${related.id}`" class="related-link">
+                   <RouterLink :to="`/post/${related.slug}`" class="related-link">
                       {{ related.title }}
                    </RouterLink>
                    <span class="related-date">{{ formatDate(related.created_at) }}</span>
@@ -118,8 +118,8 @@ const formatDate = (dateString) => {
 const fetchPostDetail = async () => {
   loading.value = true;
   try {
-    const id = route.params.id;
-    const res = await api.get(`/posts/${id}`);
+    const slug = route.params.slug;
+    const res = await api.get(`/posts/${slug}`);
     post.value = res.data;
 
     // Sau khi lấy bài viết, lấy thêm các bài viết cùng chuyên mục
@@ -127,7 +127,7 @@ const fetchPostDetail = async () => {
        const relatedRes = await api.get(`/posts/menu/${post.value.menu_id}`);
        // Lọc bỏ bài hiện tại và lấy tối đa 5 bài
        relatedPosts.value = relatedRes.data
-          .filter(p => p.id != id)
+          .filter(p => p.slug != slug)
           .slice(0, 5);
     }
   } catch (error) {
@@ -142,8 +142,8 @@ const sharePost = () => {
   alert("Tính năng chia sẻ đang được phát triển!");
 };
 
-// Theo dõi thay đổi ID trên URL (ví dụ khi nhấn vào bài viết liên quan)
-watch(() => route.params.id, fetchPostDetail);
+// Theo dõi thay đổi Slug trên URL (ví dụ khi nhấn vào bài viết liên quan)
+watch(() => route.params.slug, fetchPostDetail);
 
 onMounted(fetchPostDetail);
 </script>
